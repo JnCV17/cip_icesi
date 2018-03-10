@@ -1,0 +1,340 @@
+.force-to-50 {
+	width: 50%
+}
+
+.force-to-33 {
+	width: 33%;
+}
+
+.force-to-100 {
+	width: 100%
+}
+
+.margin-1 {
+	margin: 1%;
+}
+
+.margin-3 {
+	margin: 3%;
+}
+
+.padding-1 {
+	padding: 1%
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+.margin-auto {
+	margin: auto;
+}
+
+.force-to-49 {
+	width: 49%;
+}
+
+.force-to-half {
+	width: 45%;
+	margin: 2%;
+}
+
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
+	.ui-datatable tfoot th {
+	border-width: 0px;
+	font-size: 20px;
+}
+
+.table-output {
+	font-size: 18px;
+}
+
+.subtitle {
+	background-color: #ee6e73;
+	padding: 15px;
+	color: #fff;
+	border-top: 0.5px solid #000;
+}
+
+.btn-material {
+	display: block;
+	margin-top: 40px;
+	margin-bottom: 40px;
+	width: 30%;
+}
+
+.text-med {
+	font-size: medium;
+}
+
+.text-lar {
+	font-size: large;
+}
+
+.waves-effect .waves-circle .waves-light .btn-floating .secondary-content
+	{
+	background-color: #93DB70;
+}
+
+.cuerpo {
+	margin-top: 140px;
+	margin-bottom: 150px;
+}
+
+p {
+	font-size: 10px;
+}
+
+.btn-large {
+	background-color: #93DB70;
+	margin-top: 10px;
+}
+
+.centrado-margin {
+	margin: o auto;
+	text-align: center;
+}
+
+input[type=text] {
+	border: none;
+	border-bottom: 1px solid #9e9e9e;
+	width: 90%;
+	border-radius: 0;
+	outline: none;
+	height: 2rem;
+	font-size: 1rem;
+	margin: 0;
+	box-shadow: none;
+	transition: all 0.3s;
+}
+
+table {
+	width: 100%;
+	display: table;
+}
+
+.ui-widget input {
+	width: 90%;
+}
+
+.card
+
+ 
+
+.card-action
+
+ 
+
+a
+
+
+:not
+
+ 
+
+(
+.btn
+
+ 
+
+)
+:not
+
+ 
+
+(
+.btn-large
+
+ 
+
+)
+:not
+
+ 
+
+(
+.btn-large
+
+ 
+
+)
+:not
+
+
+	
+
+(
+.btn-floating
+
+ 
+
+)
+{
+margin-right
+
+
+:
+
+ 
+
+0
+px
+
+
+;
+}
+.ui-inputfield {
+	margin: 0;
+	outline: medium none;
+	padding: 4px;
+	font-weight: normal;
+}
+
+.ui-spinner-button {
+	color: #333333;;
+	background-color: #f5f5f5;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+	cursor: pointer;
+	background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+	background-repeat: repeat-x;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	border-radius: 4px;
+	border: 1px solid #cccccc;
+}
+
+.ui-icon {
+	width: 16px;
+	height: 16px;
+}
+
+.z-depth-3 {
+	box-shadow: none;
+}
+
+.ui-widget-content .ui-picklist-list {
+	border: 1px solid #dddddd;
+	color: #333333;
+}
+
+.ui-spinner .ui-icon-triangle-1-n {
+	background-position: 0 -16;
+}
+
+.ui-icon-triangle-1-s {
+	background-position: -64px -16px;
+}
+
+.ui-button.ui-state-hover {
+	border: 1px solid #cccccc;
+	background: #dedede;
+}
+
+.ui-button.ui-state-active {
+	border: 1px solid #cccccc;
+	background: #a1a1a1;
+}
+
+.ui-inputswitch .ui-widget .ui-widget-content .ui-corner-all {
+	width: 58px;
+	border: 1px solid #d5d5d5;
+	background: #fff;
+}
+
+.ui-inputswitch {
+	height: 24px;
+}
+
+.ui-inputswitch .ui-inputswitch-on {
+	left: 0;
+	padding-right: 4px;
+	border: 0 none;
+	height: 24px;
+	background: #ef6c00 !important;
+	color: #fff !important;
+}
+
+.ui-inputswitch .ui-inputswitch-handle {
+	border: 1px solid #d6d6d6;
+	background: #fff;
+	color: #555;
+}
+
+.ui-corner-all {
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+}
+
+.ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all {
+	border: 1px solid #d6d6d6;
+}
+
+.ui-selectonemenu-trigger.ui-state-default.ui-corner-right.ui-state-hover
+	{
+	background: #eee;
+}
+
+.ui-selectonemenu-trigger.ui-state-default.ui-corner-right.ui-state-focus
+	{
+	background: #eee;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger {
+	width: inherit;
+}
+
+.ui-selectonemenu-panel.ui-widget.ui-widget-content.ui-corner-all.ui-helper-hidden.ui-shadow
+	{
+	border: 1px solid #d6d6d6;
+	background: white;
+}
+
+.ui-shadow {
+	box-shadow: none;
+}
+
+.ui-selectonemenu-item.ui-selectonemenu-list-item.ui-corner-all.ui-state-hover
+	{
+	background: #eee;
+}
+
+.ui-selectonemenu-item.ui-selectonemenu-list-item.ui-corner-all.ui-state-highlight
+	{
+	background: #ef6c00;
+}
+
+.ui-tabs .ui-tabs-nav>li.ui-state-default {
+	background: #f6f7f9;
+	border: 1px solid #d6d6d6;
+}
+
+.ui-tabs.ui-tabs-top>.ui-tabs-nav li {
+	border-bottom: 0;
+	top: 1px;
+}
+
+.ui-tabs .ui-tabs-nav>li.ui-state-default.ui-state-active {
+	background: #fff;
+	font-weight: normal;
+	color: #555;
+}
+
+.ui-tabs .ui-tabs-nav>li.ui-state-default.ui-state-hover {
+	background: #ededf0;
+}
+
+.ui-corner-top {
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+}
+
+a {
+	color: #ef6c00;
+	text-decoration: none;
+}

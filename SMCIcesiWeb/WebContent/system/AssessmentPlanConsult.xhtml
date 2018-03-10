@@ -1,0 +1,136 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+
+</h:head>
+
+<h:body>
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="body">
+			<f:loadBundle var="msg" basename="co.com.novatech.resources.labels" />
+
+			<h:form style="width: 100%">
+				<p:growl id="msgs" showDetail="true" />
+				<div class="divConsulta1">
+
+
+					<h1 style="text-align: center; color: black">#{msg['plan.consultPlan']}</h1>
+
+					<div class="selecOneMenu">
+						<h5 style="text-align: center; color: black;">#{msg['plan.consultPlanInfo']}</h5>
+
+						<h:panelGrid columns="6">
+
+							<p:outputLabel for="somProgram"
+								style="color: black;font-family: 'Open Sans', sans-serif;margin-left:2%"
+								value="#{msg['plan.lblFiltroPrograma']}" />
+							<p:selectOneMenu id="somProgram"
+								value="#{AssessmentPlanConsultController.program}"
+								style="width:200px">
+								<p:ajax event="change"
+									listener="#{AssessmentPlanConsultController.onProgramChange}"
+									update="somCycle" />
+								<f:selectItem itemLabel="#{msg['plan.selectProgram']}"
+									itemValue="#{null}" noSelectionOption="true" />
+								<f:selectItems
+									value="#{AssessmentPlanConsultController.losProgramas}"
+									var="pro" itemLabel="#{pro.nameProgram}" itemValue="#{pro}" />
+								<f:converter converterId="ProgramConverter" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="somCycle"
+								style="color: black;font-family: 'Open Sans', sans-serif;margin-left:2%"
+								value="#{msg['plan.lblFiltroCiclo']}" />
+							<p:selectOneMenu id="somCycle"
+								value="#{AssessmentPlanConsultController.cycle}"
+								style="width:200px">
+								<p:ajax event="change"
+									listener="#{AssessmentPlanConsultController.onCycleChange}"
+									update="somSCycle" />
+								<f:selectItem itemLabel="#{msg['plan.selectCycle']}"
+									itemValue="#{null}" noSelectionOption="true" />
+								<f:selectItems
+									value="#{AssessmentPlanConsultController.losCiclos}" var="cyc"
+									itemLabel="#{cyc.cycleName}" itemValue="#{cyc}" />
+								<f:converter converterId="MainCycleConverter" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="somSCycle"
+								style="color: black;font-family: 'Open Sans', sans-serif;margin-left:2%"
+								value="#{msg['plan.lblFiltroSubciclo']}" />
+							<p:selectOneMenu id="somSCycle"
+								value="#{AssessmentPlanConsultController.subcycle}"
+								style="width:200px">
+								<f:selectItem itemLabel="#{msg['plan.selectSubcycle']}"
+									itemValue="#{null}" noSelectionOption="true" />
+								<f:selectItems
+									value="#{AssessmentPlanConsultController.losSubciclos}"
+									var="scyc" itemLabel="#{scyc.cycleName}" itemValue="#{scyc}" />
+								<f:converter converterId="MainCycleConverter" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+
+						<div
+							style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%">
+							<p:commandButton value="#{msg['plan.btnConsult']}"
+								update="asmPTable,msgs"
+								actionListener="#{AssessmentPlanConsultController.actionConsult}"
+								icon="ui-icon-check" />
+
+						</div>
+
+					</div>
+
+
+				</div>
+				<div class="divConsulta2">
+					<p:dataTable id="asmPTable" var="apt"
+						value="#{AssessmentPlanConsultController.infoPlans}"
+						paginator="true" rows="4">
+						<f:facet name="header">#{msg['plan.lblPlanAssessment']}</f:facet>
+						<p:column headerText="Id">
+							<h:outputText value="#{apt.idPlan}" />
+						</p:column>
+						<p:column headerText="#{msg['plan.lblPlanAssessment']}">
+							<h:outputText value="#{apt.nombreplan}" />
+						</p:column>
+						<p:column headerText="#{msg['plan.lblLiderOutcome']}">
+							<h:outputText value="#{apt.liderOutcome}" />
+						</p:column>
+						<p:column headerText="#{msg['plan.lblFechaCreacion']} ">
+							<h:outputText value="#{apt.fechaCreacion}" />
+						</p:column>
+						<p:column headerText="#{msg['plan.lblEstado']} ">
+							<h:outputText value="#{apt.estadoPlan}" />
+						</p:column>
+						<p:column headerText="#{msg['plan.lblPrograma']} ">
+							<h:outputText value="#{apt.programa}" />
+						</p:column>
+						<p:column headerText="#{msg['plan.lblCiclo']} ">
+							<h:outputText value="#{apt.ciclo}" />
+						</p:column>
+						<p:column headerText="#{msg['plan.lblSubciclo']} ">
+							<h:outputText value="#{apt.subciclo}" />
+						</p:column>
+						<p:column>
+							<p:commandButton value="Editar plan"
+								action="#{AssessmentPlanConsultController.onPageLoadForNewTab}"
+								ajax="false" icon="ui-icon-disk">
+								<f:setPropertyActionListener
+									target="#{AssessmentPlanConsultController.planInfo}"
+									value="#{apt}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</div>
+			</h:form>
+
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

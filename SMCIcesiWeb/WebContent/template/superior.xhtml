@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+	<f:loadBundle var="msg" basename="co.com.novatech.resources.labels" />
+	<f:view>
+		<ui:composition>
+
+			<h:form>
+				<p:remoteCommand name="verificarMECA"
+					actionListener="#{MenuDinamicController.isMECA}" />
+				<p:remoteCommand name="verificarDirector"
+					actionListener="#{MenuDinamicController.isDirector}" />
+
+				<div class="banner">
+
+					<h:commandButton id="btSp"
+						action="#{LoginController.changeSpanish}" value="Espa&#241;ol"
+						image="../resources/icon/es2.png" ajax="false"
+						styleClass="buttonSuperior" />
+
+					<h:commandButton id="btEp"
+						action="#{LoginController.changeEnglish}" value="English"
+						image="../resources/icon/en2.png" ajax="false"
+						styleClass="buttonSuperior" />
+
+					<h1 class="portada">SMC</h1>
+
+				</div>
+			</h:form>
+
+			<h:form>
+
+				<ul id="slide-out" class="side-nav fixed navMenu">
+					<li><div class="user-view">
+							<div class="background">
+								<img src="http://www.icesi.edu.co/disenomas/img/icesiHome.jpg"
+									style="opacity: 0.2" />
+							</div>
+							<a href="#!user"><img class="circle"
+								src="https://castingmundial.com/img/perfil/perfil.png" /></a> <a
+								href="#!name" style="color: black;"><span class="name">#{PrincipalPageController.nameUser}</span></a>
+							<a href="#!rol" style="color: black;"><span class="">#{PrincipalPageController.roles}</span></a>
+							<a href="#!email" style="color: black;"><span class="email">#{MenuDinamicController.userSesion.getEmail()}</span></a>
+						</div></li>
+					
+					<p:menu model="#{MenuDinamicController.model}" styleClass="menu"></p:menu>
+				</ul>
+				<a href="#" data-activates="slide-out" class="button-collapse"><i
+					class="material-icons">menu</i></a>
+
+				
+			</h:form>
+
+
+		</ui:composition>
+	</f:view>
+
+</h:body>
+</html>

@@ -1,0 +1,85 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+
+</h:head>
+
+<h:body>
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="body">
+			<f:loadBundle var="msg" basename="co.com.novatech.resources.labels" />
+			<h:form style="width: 100%">
+				<p:growl id="msgs" />
+				<div class="divPrincipal">
+
+
+					<h1 style="text-align: center; margin-top: 8%; color: black;">#{msg['outcome.creacionReport']}</h1>
+
+					<div class="selecOneMenu">
+						<h5 style="text-align: center; margin-top: 8%; color: black;">#{msg['outcome.creacionReportInfo']}</h5>
+						<h:panelGrid columns="2">
+
+							<p:outputLabel for="SomProgram"
+								value="#{msg['plan.lblPrograma']}"
+								style="color: black;font-family: 'Open Sans', sans-serif;margin-left:2%" />
+							<p:selectOneMenu id="SomProgram"
+								value="#{CreateEvaluationReportController.program}" required="true"
+								requiredMessage="#{msg['outcome.lblErrorPrograma']}">
+
+								<p:ajax event="change"
+									listener="#{CreateEvaluationReportController.listenerPlans}"
+									update="SomPlan" />
+
+								<f:selectItem itemLabel="#{msg['plan.selectProgram']}"
+									itemValue="#{null}" noSelectionOption="true" />
+								<f:selectItems value="#{CreateEvaluationReportController.programs}"
+									var="prog" itemLabel="#{prog.nameProgram}" itemValue="#{prog}" />
+								<f:converter converterId="ProgramConverter" />
+
+							</p:selectOneMenu>
+
+
+							<p:outputLabel for="SomPlan"
+								style="color: black;font-family: 'Open Sans', sans-serif;margin-left:2%"
+								value="#{msg['eval.evalPlan']}" />
+							<p:selectOneMenu id="SomPlan"
+								value="#{CreateEvaluationReportController.plan}"
+								style="width:100%" required="true"
+								requiredMessage="message">
+
+								<f:selectItem
+									itemLabel="#{msg['eval.selectPlan']}"
+									itemValue="#{null}" noSelectionOption="true" />
+								<f:selectItems value="#{CreateEvaluationReportController.plans}"
+									var="pla" itemLabel="Assessment Plan #{pla.outcomeCycleA.outcome.criterion}"
+									itemValue="#{pla}" />
+								<f:converter converterId="PlanConverter" />
+
+							</p:selectOneMenu>
+
+						
+
+
+							
+							<p:commandButton value="#{msg['eval.btnCrearEval']}"
+								update="msgs"
+								action="#{CreateEvaluationReportController.createAction}" />
+
+
+							<p:commandButton value="#{msg['outcome.btnCancelar']}"
+								update="msgs"
+								action="#{CreateEvaluationReportController.cancelAction}" />
+						</h:panelGrid>
+					</div>
+
+				</div>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

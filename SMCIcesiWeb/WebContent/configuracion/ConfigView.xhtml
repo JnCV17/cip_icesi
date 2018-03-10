@@ -1,0 +1,194 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<style>
+panelgrid {
+	border: none;
+}
+</style>
+</h:head>
+
+<h:body>
+
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="body">
+
+			<f:loadBundle var="msg" basename="co.com.novatech.resources.labels" />
+
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true">
+					<div class="divPrincipal">
+
+						<nav class="nav-extended prueba2">
+							<div class="nav-wrapper">
+								<a class="active brand-logo">#{msg['alert.titulo']}</a>
+							</div>
+							<div class="nav-content black-text prueba2">
+								<ul class="tabs tabs-transparent">
+									<li class="tab active"><a class="active"
+										href="#asignacion">#{msg['alert.asignacion']}</a></li>
+
+									<li class="tab"><a href="#desasignacion">#{msg['alert.desasignacion']}</a></li>
+
+									<li class="tab "><a href="#cambioAssessmet">#{msg['alert.cambioEstadoAssessment']}</a></li>
+
+									<li class="tab"><a href="#recoleccion">#{msg['alert.recoleccion']}</a></li>
+
+									<li class="tab "><a href="#evaluacion">#{msg['alert.evaluacion']}</a></li>
+
+									<li class="tab"><a href="#cambioEvaluacion">#{msg['alert.cambioEstadoReporte']}</a></li>
+								</ul>
+							</div>
+						</nav>
+
+
+						<h5 style="text-align: center; margin-top: 2%; color: black;">#{msg['alert.info']}</h5>
+
+						<div id="asignacion" class="col s12 black-text">
+							<div class="row">
+								<div class="input-field col s6 black-text">
+									<p:inputTextarea styleClass="campoTexto"
+										placeholder="Descripción alerta"
+										value="#{AlertAsignacionController.descripcion}">
+									</p:inputTextarea>
+									<p:commandButton update="msgs"
+										value="#{msg['alert.btnGuardar']}"
+										actionListener="#{AlertAsignacionController.verificar}"
+										icon="ui-icon-check" />
+								</div>
+								<ul class="collection with-header black-text">
+									<li class="collection-header"><h4>#{msg['alert.tituloRecomendaciones']}</h4></li>
+									<li class="collection-item">#{msg['alert.Subject']}</li>
+									<li class="collection-item">#{msg['alert.Program']}</li>
+									<li class="collection-item">#{msg['alert.Outcome']}</li>
+									<li class="collection-item">#{msg['alert.Autor']}</li>
+								</ul>
+							</div>
+						</div>
+
+						<div id="desasignacion" class="col s12 black-text">
+							<div class="row">
+								<div class="input-field col s6 black-text">
+									<p:inputTextarea styleClass="campoTexto"
+										placeholder="Descripción alerta"
+										value="#{AlertDesasignacionController.descripcion}">
+									</p:inputTextarea>
+									<p:commandButton update="msgs"
+										value="#{msg['alert.btnGuardar']}"
+										actionListener="#{AlertDesasignacionController.verificar}"
+										icon="ui-icon-check" />
+								</div>
+								<ul class="collection with-header black-text">
+									<li class="collection-header"><h4>#{msg['alert.tituloRecomendaciones']}</h4></li>
+									<li class="collection-item">#{msg['alert.Subject']}</li>
+									<li class="collection-item">#{msg['alert.Program']}</li>
+									<li class="collection-item">#{msg['alert.Outcome']}</li>
+									<li class="collection-item">#{msg['alert.Autor']}</li>
+
+								</ul>
+							</div>
+						</div>
+
+						<div id="cambioAssessmet" class="col s12v black-text">
+							<div class="row">
+								<div class="input-field col s6 black-text">
+									<p:inputTextarea styleClass="campoTexto"
+										placeholder="Descripción alerta"
+										value="#{AlertCambioAssessmentController.descripcion}">
+									</p:inputTextarea>
+									<p:commandButton update="msgs"
+										value="#{msg['alert.btnGuardar']}"
+										actionListener="#{AlertCambioAssessmentController.verificar}"
+										icon="ui-icon-check" />
+								</div>
+								<ul class="collection with-header black-text">
+									<li class="collection-header"><h4>#{msg['alert.tituloRecomendaciones']}</h4></li>
+									<li class="collection-item">#{msg['alert.Subject']}</li>
+									<li class="collection-item">#{msg['alert.Program']}</li>
+									<li class="collection-item">#{msg['alert.Outcome']}</li>
+									<li class="collection-item">#{msg['alert.State']}</li>
+								</ul>
+							</div>
+						</div>
+
+						<div id="recoleccion" class="col s12 black-text">
+							<div class="row">
+								<div class="input-field col s6 black-text">
+									<p:inputTextarea styleClass="campoTexto"
+										placeholder="Descripción alerta"
+										value="#{AlertRecoleccionController.descripcion}">
+									</p:inputTextarea>
+									<p:commandButton update="msgs"
+										value="#{msg['alert.btnGuardar']}"
+										actionListener="#{AlertRecoleccionController.verificar}"
+										icon="ui-icon-check" />
+								</div>
+								<ul class="collection with-header black-text">
+									<li class="collection-header"><h4>#{msg['alert.tituloRecomendaciones']}</h4></li>
+									<li class="collection-item">#{msg['alert.Subject']}</li>
+									<li class="collection-item">#{msg['alert.Program']}</li>
+									<li class="collection-item">#{msg['alert.Outcome']}</li>
+									<li class="collection-item">#{msg['alert.AssessmentSource']}</li>
+									<li class="collection-item">#{msg['alert.Date']}</li>
+								</ul>
+							</div>
+						</div>
+
+						<div id="evaluacion" class="col s12 black-text">
+							<div class="row">
+								<div class="input-field col s6 black-text">
+									<p:inputTextarea styleClass="campoTexto"
+										placeholder="Descripción alerta"
+										value="#{AlertEvaluacionController.descripcion}">
+									</p:inputTextarea>
+									<p:commandButton update="msgs"
+										value="#{msg['alert.btnGuardar']}"
+										actionListener="#{AlertEvaluacionController.verificar}"
+										icon="ui-icon-check" />
+								</div>
+								<ul class="collection with-header black-text">
+									<li class="collection-header"><h4>#{msg['alert.tituloRecomendaciones']}</h4></li>
+									<li class="collection-item">#{msg['alert.Subject']}</li>
+									<li class="collection-item">#{msg['alert.Program']}</li>
+									<li class="collection-item">#{msg['alert.Outcome']}</li>
+									<li class="collection-item">#{msg['alert.Date']}</li>
+
+								</ul>
+							</div>
+						</div>
+
+						<div id="cambioEvaluacion" class="col s12 black-text">
+							<div class="row">
+								<div class="input-field col s6 black-text">
+									<p:inputTextarea styleClass="campoTexto"
+										placeholder="Descripción alerta"
+										value="#{AlertCambioEvaluacionController.descripcion}">
+									</p:inputTextarea>
+									<p:commandButton update="msgs"
+										value="#{msg['alert.btnGuardar']}"
+										actionListener="#{AlertCambioEvaluacionController.verificar}"
+										icon="ui-icon-check" />
+								</div>
+								<ul class="collection with-header black-text">
+									<li class="collection-header"><h4>#{msg['alert.tituloRecomendaciones']}</h4></li>
+									<li class="collection-item">#{msg['alert.Subject']}</li>
+									<li class="collection-item">#{msg['alert.Program']}</li>
+									<li class="collection-item">#{msg['alert.Outcome']}</li>
+									<li class="collection-item">#{msg['alert.State']}</li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+				</p:growl>
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

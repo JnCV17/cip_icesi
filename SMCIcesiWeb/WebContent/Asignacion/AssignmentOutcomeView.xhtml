@@ -1,0 +1,104 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+
+</h:head>
+
+<h:body style="height: 133px; ">
+	<p:growl id="msgs" showDetail="true">
+		<ui:composition template="/template/template.xhtml">
+			<ui:define name="body">
+				<f:loadBundle var="msg" basename="co.com.novatech.resources.labels" />
+
+				<h:form>
+					<div class="divPrincipal">
+						<h1 style="text-align: center;margin-top: 8%; color: black;">#{msg['outcome.seleccionLider']}</h1>
+
+						<div class="selecOneMenu">
+							<h5 style="text-align: center; margin-top: 8%; color: black;">#{msg['outcome.seleccionLiderInfo']}</h5>
+							<h:panelGrid columns="2">
+
+								<h:outputLabel
+									style="color: black;font-family: 'Open Sans', sans-serif;"
+									id="oplSeleccionePrograma"
+									value="#{msg['outcome.lblSeleccionarPrograma']}" />
+
+
+								<p:selectOneMenu id="somProgramas"
+									value="#{AssignmentOutcomeController.program}"
+									style="width:200px">
+
+
+									<p:ajax event="change"
+										listener="#{AssignmentOutcomeController.listenerOutcomes}"
+										update="somOutcomes" />
+
+									<f:selectItem
+										itemLabel="#{msg['outcome.lblSeleccionarPrograma']}"
+										itemValue="#{null}" noSelectionOption="true" />
+									<f:selectItems value="#{AssignmentOutcomeController.programs}"
+										var="prog" itemLabel="#{prog.nameProgram}" itemValue="#{prog}" />
+									<f:converter converterId="ProgramConverter" />
+
+								</p:selectOneMenu>
+
+
+								<h:outputLabel id="oplSeleccioneOutcome"
+									style="color: black;font-family: 'Open Sans', sans-serif;"
+									value="#{msg['outcome.lblSeleccionarOutcome']}" />
+
+								<p:selectOneMenu id="somOutcomes"
+									value="#{AssignmentOutcomeController.outcome}">
+
+									<f:selectItem
+										itemLabel="#{msg['outcome.lblSeleccionarOutcome']}"
+										itemValue="#{null}" noSelectionOption="true" />
+									<f:selectItems value="#{AssignmentOutcomeController.outcomes}"
+										var="outco"
+										itemLabel="#{outco.criterion} #{outco.shortDescription}"
+										itemValue="#{outco}" />
+									<f:converter converterId="OutcomeConverter" />
+
+								</p:selectOneMenu>
+
+
+								<h:outputLabel id="oplSeleccioneProfesorEncargadoOutcome"
+									style="color: black;font-family: 'Open Sans', sans-serif;"
+									value="#{msg['outcome.lblSeleccionarProfesor']}" />
+
+								<p:selectOneMenu id="somProfesoresOutcomes"
+									value="#{AssignmentOutcomeController.profesor}">
+
+
+									<f:selectItem
+										itemLabel="#{msg['outcome.lblSeleccionarProfesor']}"
+										itemValue="#{null}" noSelectionOption="true" />
+									<f:selectItems
+										value="#{AssignmentOutcomeController.profesores}" var="profe"
+										itemLabel="#{profe.nameUser}" itemValue="#{profe}" />
+									<f:converter converterId="UserCipConverter" />
+
+								</p:selectOneMenu>
+							</h:panelGrid>
+
+							<div
+								style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%">
+								<p:commandButton value="#{msg['outcome.btnAsignar']}"
+									actionListener="#{AssignmentOutcomeController.asignarOutcome}"
+									update="msgs" ajax="false" style="margin-top:4%" />
+
+							</div>
+						</div>
+					</div>
+
+				</h:form>
+
+			</ui:define>
+		</ui:composition>
+	</p:growl>
+</h:body>
+
+</html>

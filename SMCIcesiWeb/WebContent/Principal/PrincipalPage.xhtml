@@ -1,0 +1,101 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<style>
+panelgrid {
+	border: none;
+}
+</style>
+</h:head>
+
+<h:body>
+
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="body">
+
+			<f:loadBundle var="msg" basename="co.com.novatech.resources.labels" />
+
+			<h:form>
+				<div class="divPrincipal">
+					<h1 style="text-align: center; margin-top: 8%; color: black;">#{msg['ppal.tituloSeleccion']}</h1>
+
+
+					<div class="selecOneMenu">
+						<h5 style="text-align: center; margin-top: 8%; color: black;">#{msg['ppal.seleccionCiclo']}</h5>
+						<h:panelGrid columns="2">
+							<p:outputLabel
+								style="color: black;font-family: 'Open Sans', sans-serif;"
+								for="somProgram" value="#{msg['plan.lblFiltroPrograma']}" />
+
+							<p:selectOneMenu id="somProgram" required="true"
+								requiredMessage="#{msg['menu.exeRequerido']}"
+								value="#{PrincipalPageController.program}">
+								<p:ajax event="change"
+									listener="#{PrincipalPageController.onProgramChange}"
+									update="somCycle,somSCycle" />
+								<f:selectItem itemLabel="Select Program"
+									itemValue="#{PrincipalPageController.programSesion}" />
+								<f:selectItems value="#{PrincipalPageController.losProgramas}"
+									var="pro" itemLabel="#{pro.nameProgram}" itemValue="#{pro}" />
+								<f:converter converterId="ProgramConverter" />
+							</p:selectOneMenu>
+
+							<p:outputLabel
+								style="color: black;font-family: 'Open Sans', sans-serif; margin-left:2%"
+								for="somCycle" value="#{msg['plan.lblFiltroCiclo']}" />
+
+							<p:selectOneMenu id="somCycle" required="true"
+								requiredMessage="#{msg['menu.exeRequerido']}"
+								value="#{PrincipalPageController.cycle}">
+								<p:ajax event="change"
+									listener="#{PrincipalPageController.onCycleChange}"
+									update="somSCycle" />
+								<f:selectItem itemLabel="Select Cycle"
+									itemValue="#{PrincipalPageController.cycleSesion}" />
+								<f:selectItems value="#{PrincipalPageController.losCiclos}"
+									var="cyc" itemLabel="#{cyc.cycleName}" itemValue="#{cyc}" />
+								<f:converter converterId="MainCycleConverter" />
+							</p:selectOneMenu>
+
+							<p:outputLabel
+								style="color: black;font-family: 'Open Sans', sans-serif;margin-left:2%"
+								for="somSCycle" value="#{msg['plan.lblFiltroSubciclo']}" />
+
+							<p:selectOneMenu id="somSCycle" required="true"
+								requiredMessage="#{msg['menu.exeRequerido']}"
+								value="#{PrincipalPageController.subcycle}">
+
+								<f:selectItem
+									itemValue="#{PrincipalPageController.subcycleSesion}" />
+								<f:selectItems value="#{PrincipalPageController.losSubciclos}"
+									var="scyc" itemLabel="#{scyc.cycleName}" itemValue="#{scyc}" />
+								<f:converter converterId="MainCycleConverter" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<div
+							style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%">
+							<p:commandButton value="#{msg['ppal.guardar']}"
+								action="#{PrincipalPageController.actionIrACiclo}" ajax="false"
+								icon="ui-icon-check" style="margin-top:4%" />
+						</div>
+					</div>
+
+				</div>
+			</h:form>
+
+
+
+
+
+
+
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

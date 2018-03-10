@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+
+</h:head>
+
+<h:body>
+<ui:composition template="/template/template.xhtml">  
+	<ui:define name="body">
+	<h2>PRUEBA</h2>
+	<h:form id="frmStateType">
+		<p:inputText id="inpStateTypeName"
+			value="#{StateTypeController.strStateTypeName}"></p:inputText>
+		<p:commandButton id="butOkAction" value="Ok"
+			actionListener="#{StateTypeController.okAction}"></p:commandButton>
+	</h:form>
+	</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

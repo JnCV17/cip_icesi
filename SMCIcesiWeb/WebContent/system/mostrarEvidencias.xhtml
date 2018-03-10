@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<style type="text/css">
+.ui-widget {
+	font-size: 90%;
+}
+</style>
+</h:head>
+
+<h:body>
+	<h:form>
+		
+		<p:panel id="panel" header="#{msg['plan.lblCargarEvidencias']}"
+			style="margin-bottom:10px;">
+
+			<p:growl id="msg" />
+
+			<i id="customheader" class="fa fa-fw fa-car" style="display: none"></i>
+
+			<p:dataTable id="tablaEvidencias" var="evide"
+				value="#{MostrarEvidenciasController.listaEvidenciasFuenteAssessment}">
+
+				<p:column headerText="#{msg['plan.lblNombreArchivo']}">
+					<p:commandLink id="ajax" ajax="false">
+						<h:outputText value="#{evide.name}" />
+						<f:setPropertyActionListener
+							target="#{MostrarEvidenciasController.evidencia}"
+							value="#{evide}" />
+						<p:fileDownload
+							value="#{MostrarEvidenciasController.filedownload}" />
+					</p:commandLink>
+				</p:column>
+
+				<p:column headerText="#{msg['plan.lblDescripcionEvidencia']}">
+					<h:outputText value="#{evide.description}" />
+				</p:column>
+
+				<p:column headerText="#{msg['plan.lblCargadoPor']}">
+					<h:outputText value="#{evide.userCip.nameUser}" />
+				</p:column>
+
+				<p:column headerText="#{msg['plan.lblBorrar']}">
+					<p:commandButton value="X"
+						action="#{MostrarEvidenciasController.eliminarEvidencia}"
+						update="@form" >
+						<f:setPropertyActionListener
+							target="#{MostrarEvidenciasController.evidencia}"
+							value="#{evide}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:fileUpload
+				fileUploadListener="#{MostrarEvidenciasController.uploadEvideFile}"
+				label="Cargar evidencia" mode="advanced" auto="true"
+				update="tablaEvidencias,msg" sizeLimit="10000000">
+
+
+				<h:outputLabel for="ajax" value="#{msg['plan.lblDescripcion']}" />
+				<p:inplace id="ajax" editor="true">
+					<p:inputText value="#{MostrarEvidenciasController.descripcion}"
+						required="true"
+						requiredMessage="#{msg['plan.lblRequeridaDescripcion']}"
+						label="text" />
+				</p:inplace>
+
+			</p:fileUpload>
+		</p:panel>
+	</h:form>
+</h:body>
+
+</html>

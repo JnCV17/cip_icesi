@@ -1,0 +1,133 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+
+</h:head>
+
+<h:body>
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="body">
+			<f:loadBundle var="msg" basename="co.com.novatech.resources.labels" />
+
+			<h:form style="width: 100%">
+				<p:growl id="msgs" showDetail="true" />
+				<div class="divConsulta1">
+
+
+					<h3 style="text-align: center; color: black">#{msg['eval.consultPlan']}</h3>
+
+					<div class="selecOneMenu">
+
+						<h:panelGrid columns="6">
+
+							<p:outputLabel for="somProgram"
+								style="color: black;font-family: 'Open Sans', sans-serif;margin-left:2%"
+								value="#{msg['plan.lblFiltroPrograma']}" />
+							<p:selectOneMenu id="somProgram"
+								value="#{EvaluationReportConsultController.program}"
+								style="width:200px">
+
+								<p:ajax event="change"
+									listener="#{EvaluationReportConsultController.onProgramChange}"
+									update="somCycle" />
+								<f:selectItem itemLabel="#{msg['plan.selectProgram']}"
+									itemValue="#{null}" noSelectionOption="true" />
+								<f:selectItems
+									value="#{EvaluationReportConsultController.losProgramas}"
+									var="pro" itemLabel="#{pro.nameProgram}" itemValue="#{pro}" />
+								<f:converter converterId="ProgramConverter" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="somCycle"
+								style="color: black;font-family: 'Open Sans', sans-serif;margin-left:2%"
+								value="#{msg['plan.lblFiltroCiclo']}" />
+							<p:selectOneMenu id="somCycle"
+								value="#{EvaluationReportConsultController.cycle}"
+								style="width:200px">
+								<p:ajax event="change"
+									listener="#{EvaluationReportConsultController.onCycleChange}"
+									update="somSCycle" />
+								<f:selectItem itemLabel="#{msg['plan.selectCycle']}"
+									itemValue="#{null}" noSelectionOption="true" />
+								<f:selectItems
+									value="#{EvaluationReportConsultController.losCiclos}"
+									var="cyc" itemLabel="#{cyc.cycleName}" itemValue="#{cyc}" />
+								<f:converter converterId="MainCycleConverter" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="somSCycle"
+								style="color: black;font-family: 'Open Sans', sans-serif;margin-left:2%"
+								value="#{msg['plan.lblFiltroSubciclo']}" />
+							<p:selectOneMenu id="somSCycle"
+								value="#{EvaluationReportConsultController.subcycle}"
+								style="width:200px">
+								<f:selectItem itemLabel="#{msg['plan.selectSubcycle']}"
+									itemValue="#{null}" noSelectionOption="true" />
+								<f:selectItems
+									value="#{EvaluationReportConsultController.losSubciclos}"
+									var="scyc" itemLabel="#{scyc.cycleName}" itemValue="#{scyc}" />
+								<f:converter converterId="MainCycleConverter" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+
+						<div
+							style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%">
+							<p:commandButton value="#{msg['plan.btnConsult']}"
+								update="asmPTable,msgs"
+								actionListener="#{EvaluationReportConsultController.actionConsult}"
+								icon="ui-icon-check" />
+
+						</div>
+
+					</div>
+
+
+				</div>
+				<div class="divConsulta2">
+					<p:dataTable id="asmPTable" var="apt"
+						value="#{EvaluationReportConsultController.infoEval}"
+						paginator="true" rows="4">
+						<f:facet name="header">#{msg['eval.lblEvalReport']}</f:facet>
+
+						<p:column headerText="Id">
+							<h:outputText value="#{apt.idEvalReport}" />
+						</p:column>
+
+						<p:column headerText="#{msg['eval.lblName']}">
+							<h:outputText value="#{apt.evalCycle.planSmc.outcomeCycleA.outcome.criterion} #{msg['eval.lblName2']}"/>
+						</p:column>
+
+
+
+						<p:column headerText="#{msg['eval.lblCreator']} ">
+							<h:outputText value="#{apt.userCip2.nameUser}" />
+						</p:column>
+
+						<p:column headerText="#{msg['eval.lblState']}">
+							<h:outputText value="#{apt.stateSmc.stateName}" />
+						</p:column>
+
+						<p:column>
+							<p:commandButton value="#{msg['show.lblReport']}"
+								action="#{EvaluationReportConsultController.onPageLoadForNewTab}"
+								ajax="false" icon="ui-icon-disk">
+								<f:setPropertyActionListener
+									target="#{EvaluationReportConsultController.infoEvalu}"
+									value="#{apt}" />
+							</p:commandButton>
+						</p:column>
+
+
+					</p:dataTable>
+				</div>
+			</h:form>
+
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

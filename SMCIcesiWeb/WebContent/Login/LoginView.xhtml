@@ -1,0 +1,109 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+</h:head>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body {
+	background-image:
+		url(/SMCIcesiWeb/faces/javax.faces.resource/images/saman_slider.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: center;
+	color: white;
+	font-family: 'Open Sans', sans-serif !important;
+}
+
+.login {
+	border: hidden !important;
+	text-align: center;
+	background: rgba(204, 204, 204, 0) !important;
+}
+
+.divtitulo {
+	text-align: center;
+}
+
+.idioma {
+	float: right;
+}
+
+.footerr {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 1rem;
+	text-align: center;
+	color: white;
+}
+
+.login2 {
+	padding-left: 35%;
+	padding-bottom: 3%;
+	padding-top: 4%;
+	padding-right: 0px;
+	text-align: center;
+}
+</style>
+
+<h:body>
+	<f:loadBundle var="msg" basename="co.com.novatech.resources.labels" />
+	<f:facet name="last">
+		<h:outputStylesheet name="css/style.css" />
+	</f:facet>
+	<p:growl id="msgs" />
+	<h:form>
+		<div style="height: 36px; float: right;">
+			<h:commandButton id="btSp" action="#{LoginController.changeSpanish}"
+				value="Espa&#241;ol" image="../resources/icon/es2.png" ajax="false" />
+
+			<h:commandButton id="btEp" action="#{LoginController.changeEnglish}"
+				value="English" image="../resources/icon/en2.png" ajax="false" />
+
+		</div>
+	</h:form>
+
+
+	<div class="divtitulo">
+		<h2>#{msg['login.lblLoginTitle']}</h2>
+	</div>
+	<div
+		style="display: flex; flex-direction: column; align-items: center; justify-content: center">
+		<h2 style="text-align: center; padding-top: 10%;">#{msg['login.lblLoginLayout']}</h2>
+		<h:form>
+			<p:panel styleClass="login">
+				<div>
+					<p:inputText id="inpUsuario" value="#{LoginController.txtUser}"
+						placeholder="#{msg['login.lblusername']}"
+						requiredMessage="Digite su nombre de usuario" required="true">
+					</p:inputText>
+				</div>
+				<div style="margin-top: 5%">
+					<p:password id="inpContrasena"
+						placeholder="#{msg['login.lblPassword']}"
+						value="#{LoginController.txtPassword}"
+						requiredMessage="Digite su contraseña" required="true">
+					</p:password>
+				</div>
+
+				<p:commandButton value="#{msg['login.lblLogin']}"
+					action="#{LoginController.ingresoSistema}" ajax="false"
+					style="margin-top: 10%">
+				</p:commandButton>
+			</p:panel>
+		</h:form>
+	</div>
+
+	<div class="footerr">
+		<ui:insert name="footer">
+			<ui:include src="/template/inferiorLogin.xhtml" />
+		</ui:insert>
+	</div>
+</h:body>
+
+</html>

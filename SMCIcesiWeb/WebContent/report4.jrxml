@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report4" language="groovy" pageWidth="1440" pageHeight="601" orientation="Landscape" columnWidth="1405" leftMargin="20" rightMargin="15" topMargin="20" bottomMargin="20" uuid="f99fd3ef-e9cf-4fca-ae06-c5b84c6f4862">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="727"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="evaluation" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     COURSE."NAME_COURSE" AS COURSE_NAME_COURSE,
+     AS_SRC."METHODOLOGY" AS AS_SRC_METHODOLOGY,
+     AS_SRC."POPULATION" AS AS_SRC_POPULATION,
+     PI_SMC."DESCRIPTION" AS PI_SMC_DESCRIPTION,
+     PI_SMC."CODE" AS PI_SMC_CODE,
+     AS_SRC."RESULT" AS AS_SRC_RESULT,
+     AS_SRC."IMPROVEMENT" AS AS_SRC_IMPROVEMENT,
+     AS_SRC."ASSIGNED" AS AS_SRC_ASSIGNED
+FROM
+     "P09713_1_5"."COURSE" COURSE INNER JOIN "P09713_1_5"."AS_SRC" AS_SRC ON COURSE."ID_COURSE" = AS_SRC."COURSE_ID_COURSE"
+     INNER JOIN "P09713_1_5"."PI_SMC" PI_SMC ON AS_SRC."PI_ID_PI" = PI_SMC."ID_PI"
+     INNER JOIN "P09713_1_5"."PLAN_SMC" PLAN_SMC ON PI_SMC."PLAN_ID_PLAN" = PLAN_SMC."ID_PLAN"
+     INNER JOIN "P09713_1_5"."EVAL_CYCLE" EVAL_CYCLE ON PLAN_SMC."ID_PLAN" = EVAL_CYCLE."PLAN_ID_PLAN"
+     INNER JOIN "P09713_1_5"."EVAL_REPORT" EVAL_REPORT ON EVAL_CYCLE."ID_EVAL_CYCLE" = EVAL_REPORT."ID_EVAL_CYCLE"
+WHERE
+     EVAL_REPORT."ID_EVAL_REPORT" = $P{evaluation}
+ORDER BY
+     PI_SMC."CODE" ASC]]>
+	</queryString>
+	<field name="COURSE_NAME_COURSE" class="java.lang.String"/>
+	<field name="AS_SRC_METHODOLOGY" class="java.lang.String"/>
+	<field name="AS_SRC_POPULATION" class="java.math.BigDecimal"/>
+	<field name="PI_SMC_DESCRIPTION" class="java.lang.String"/>
+	<field name="PI_SMC_CODE" class="java.lang.String"/>
+	<field name="AS_SRC_RESULT" class="java.lang.String"/>
+	<field name="AS_SRC_IMPROVEMENT" class="java.lang.String"/>
+	<field name="AS_SRC_ASSIGNED" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="73" splitType="Stretch">
+			<staticText>
+				<reportElement style="SubTitle" x="320" y="47" width="196" height="22" forecolor="#000000" uuid="69d73a09-2a42-415c-95b2-1642123901a9"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Evaluation Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="9e9139c3-7288-4789-a91a-11f61bf781a6"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="125" y="0" width="195" height="15" forecolor="#000000" uuid="d95d6d42-d962-461b-9eb0-2c9620636a38"/>
+				<text><![CDATA[PI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="320" y="0" width="160" height="15" forecolor="#000000" uuid="fde7dd13-9f13-4e15-b355-cde06d5aad68"/>
+				<text><![CDATA[Assessment Source]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="480" y="0" width="160" height="15" forecolor="#000000" uuid="79dc21bf-b7d9-4628-b064-d6cc2d617b18"/>
+				<text><![CDATA[Methodology]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="637" y="0" width="160" height="15" forecolor="#000000" uuid="4e2a52be-0a61-4491-9b11-3c54703755c0"/>
+				<text><![CDATA[Population]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="968" y="1" width="134" height="14" uuid="81b09ebc-1127-48ac-95d3-f4b0af601c8f"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Improvement Actions]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1203" y="0" width="100" height="14" uuid="a8efa57d-6b73-4f1e-bef9-72bec4b05ff1"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Assigned to]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="848" y="2" width="100" height="14" uuid="c1608a52-3856-408e-b4cf-cae383aa9101"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Result]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="1395" height="15" uuid="c1d36469-7c9a-4615-ba6f-ee967304f820"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="12" y="0" width="131" height="15" uuid="59539155-a35c-429d-a12d-88809d6bca0c"/>
+					<textFieldExpression><![CDATA[$F{PI_SMC_CODE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="143" y="0" width="160" height="15" uuid="f8c46d45-5bac-4f58-b320-0b44186c4a8c"/>
+					<textFieldExpression><![CDATA[$F{PI_SMC_DESCRIPTION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="320" y="0" width="160" height="15" uuid="f0ea91f2-e9ad-48b1-bfdc-4843bbb22be9"/>
+					<textFieldExpression><![CDATA[$F{COURSE_NAME_COURSE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="499" y="0" width="120" height="15" uuid="3edf0f49-772c-48a5-86a3-05914c017252"/>
+					<textFieldExpression><![CDATA[$F{AS_SRC_METHODOLOGY}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="640" y="0" width="160" height="15" uuid="bf72f82a-b8d1-4345-a739-7ed6bf5f9dd1"/>
+					<textFieldExpression><![CDATA[$F{AS_SRC_POPULATION}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField>
+				<reportElement x="848" y="0" width="120" height="17" uuid="9aca3a26-77b7-4337-9771-8cd3bc191964"/>
+				<textFieldExpression><![CDATA[$F{AS_SRC_RESULT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="968" y="4" width="149" height="16" uuid="fbe2b6fb-1ff0-4e09-b880-666d0b54002d"/>
+				<textFieldExpression><![CDATA[$F{AS_SRC_IMPROVEMENT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1187" y="4" width="138" height="16" uuid="3d6b254a-c307-4523-a754-9a9fe864d229"/>
+				<textFieldExpression><![CDATA[$F{AS_SRC_ASSIGNED}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="95036c46-5868-4ca9-9252-b754da96f664"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="1416" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="18ff9b2b-928c-40de-b64f-a4e399ba2209"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="783" y="1" width="40" height="20" forecolor="#736343" uuid="55dd74e9-d81f-4fb1-8a7b-f2e33295b48d"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="703" y="1" width="80" height="20" forecolor="#736343" uuid="cca01874-f3ac-4419-b547-231616ea27f0"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="126d0e69-34e6-4e9b-b94d-ed28c06ec5f9"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

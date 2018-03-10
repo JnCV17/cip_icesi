@@ -1,0 +1,209 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<style>
+.noborder-title {
+	border: #a8a8a8 !important;
+	border-left: hidden !important;
+	border-right: hidden !important;
+	text-align: center;
+	background: rgba(255, 255, 255, 1) !important;
+}
+
+.nopaddingRow {
+	padding: 0px 0px 0px 0px !important;
+}
+
+.ui-datatable-odd {
+	background: white;
+}
+
+.noHead thead {
+	display: none;
+}
+</style>
+</h:head>
+
+<h:body>
+
+	<h:form>
+		<p:panel id="panel" header="#{msg['plan.lblplanView']}"
+			style="margin-bottom:10px;">
+
+			<p:messages id="messages" />
+			<h:panelGrid columns="2" cellpadding="5">
+				<h:outputLabel for="idlblProgramOutcome"
+					value="#{msg['plan.lblOutcomeProgram']} " />
+				<h:outputLabel for="idProgramOutcome"
+					value="#{AssessmentPlanViewConsultController.outcomePlan}" />
+				<h:outputLabel for="idLblLeader"
+					value="#{msg['plan.lblLiderOutcome']}" />
+				<h:outputLabel for="idLeader"
+					value="#{AssessmentPlanViewConsultController.outcomeLeader.nameUser}" />
+				<h:outputLabel for="idlblStatePlan" value="#{msg['plan.lblEstado']}" />
+				<h:outputLabel for="idStatePlan"
+					value="#{AssessmentPlanViewConsultController.assessmentPlan.stateSmc.stateName}" />
+				<h:outputLabel for="idlblCreatePerson"
+					value="#{msg['plan.lblCreateBy']}" />
+				<h:outputLabel for="idStatePlan"
+					value="#{AssessmentPlanViewConsultController.assessmentPlan.userCip.nameUser}" />
+				<h:outputLabel for="idlblCreationDate"
+					value="#{msg['plan.lblFechaCreacion']}" />
+				<h:outputLabel for="idStatePlan"
+					value="#{AssessmentPlanViewConsultController.creationDate}" />
+			</h:panelGrid>
+			<h:panelGrid columns="3" cellpadding="5">
+				<h:outputLabel for="idlblCambiarEstado"
+					value="#{msg['plan.lblCambiarEstado']}" />
+
+				<p:selectOneMenu id="somChangeState"
+					value="#{AssessmentPlanViewConsultController.state}">
+					<f:selectItem itemLabel="#{msg['plan.lblSelectState']}"
+						itemvalue="#{null}" noSelectionOption="true" />
+					<f:selectItems
+						value="#{AssessmentPlanViewConsultController.losEstados}"
+						var="stat" itemLabel="#{stat.stateName}" itemValue="#{stat}" />
+					<f:converter converterId="StateConverter" />
+				</p:selectOneMenu>
+				<p:commandButton value="#{msg['plan.btnChangeState']}"
+					actionListener="#{AssessmentPlanViewConsultController.cambiarEstado}"
+					update="panel" />
+			</h:panelGrid>
+		</p:panel>
+
+
+		<p:fileUpload
+			fileUploadListener="#{AssessmentPlanViewConsultController.upload}"
+			label="#{msg['plan.lblUpload']}" mode="advanced" auto="true"
+			update="@form" style="width:500px">
+
+
+			<h:outputLabel for="ajax" value="#{msg['plan.lblDescripcion']}" />
+			<p:inplace id="ajax" editor="true">
+				<p:inputText
+					value="#{AssessmentPlanViewConsultController.descripcionRubrica}"
+					required="true"
+					requiredMessage="#{msg['plan.lblRequeridaDescripcion']}"
+					label="text" />
+			</p:inplace>
+
+		</p:fileUpload>
+
+		<p:commandButton value="#{msg['plan.lblDownload']}" ajax="false">
+
+
+			<p:fileDownload
+				value="#{AssessmentPlanViewConsultController.filedownload}" />
+		</p:commandButton>
+
+		<p:commandButton value="#{msg['plan.lblGenerateReport']}" ajax="false"
+			actionListener="#{AssessmentPlanViewConsultController.guardarPdf}">
+		</p:commandButton>
+
+		<div style="display: flex; flex-direction: row; margin-top: 2%;">
+
+			<div>
+
+				<p:dataTable var="pis"
+					value="#{AssessmentPlanViewConsultController.assessmentPlan.piSmcs}">
+
+					<p:column headerText="Pi">
+						<h:outputText value="#{pis.code}" />
+					</p:column>
+
+					<p:column headerText="CDIO Level 3 (Competencies to be attained)">
+						<p:dataTable var="cdioSkill" value="#{pis.cdioSkillPis}"
+							styleClass="noHead">
+							<p:column styleClass="noborder-title">
+								<h:outputText value="#{cdioSkill.cdioSkill.description}" />
+							</p:column>
+						</p:dataTable>
+					</p:column>
+
+					<p:column headerText="Curricular Mapping" colspan="3">
+						<h:outputText
+							value="#{AssessmentPlanViewConsultController.getCursos2(pis)}"
+							escape="false" />
+					</p:column>
+
+					<p:column colspan="8"
+						headerText="Source of Assessment || Assessment Method(s) || Date of Data Collection || Person in Charge of Data Collection">
+						<p:dataTable var="srcAss" value="#{pis.asSrcs}"
+							styleClass="noHead">
+							<p:column styleClass="noborder-title" colspan="2">
+								<h:outputText value="#{srcAss.course.nameCourse}" />
+								<p:commandButton value="" icon="ui-icon-extlink"
+									action="#{MostrarEvidenciasController.mostrarListaEvidencias}"
+									style="    width: 32px;
+    margin-left: 10px;">
+
+									<f:setPropertyActionListener
+										target="#{MostrarEvidenciasController.fuenteAssessment}"
+										value="#{srcAss}" />
+
+								</p:commandButton>
+							</p:column>
+
+							<p:column styleClass="noborder-title" colspan="2">
+								<h:outputText value="#{srcAss.method.description}" />
+							</p:column>
+
+							<p:column styleClass="noborder-title" colspan="2">
+								<h:outputText value="#{srcAss.collectionDate}" />
+							</p:column>
+
+							<p:column styleClass="noborder-title" colspan="2">
+								<p:dataTable var="user" value="#{srcAss.userAsSrcs}"
+									styleClass="noHead">
+									<p:column styleClass="noborder-title"
+										style="border-top: hidden !important;
+	border-bottom: hidden !important;">
+										<h:outputText value="#{user.userCip.nameUser}" />
+									</p:column>
+								</p:dataTable>
+							</p:column>
+						</p:dataTable>
+					</p:column>
+
+					<p:column styleClass="nopaddingRow" headerText="Date of Evaluation"
+						style=" text-align: center;">
+						<h:outputText
+							value="#{AssessmentPlanViewConsultController.assessmentPlan.evaluationDate}" />
+					</p:column>
+
+					<p:column styleClass="nopaddingRow"
+						headerText="Frequency of Evaluation" style=" text-align: center;">
+						<h:outputText
+							value="#{AssessmentPlanViewConsultController.assessmentPlan.evaluationFrequency}" />
+					</p:column>
+
+
+					<p:column style="width:32px;text-align: center">
+						<p:commandButton icon="ui-icon-pencil" id="editPlan"
+							actionListener="#{AssessmentPlanViewConsultController.loadPi(pis)}">
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+			</div>
+		</div>
+		<div style="margin-top: 15px">
+			<p:commandButton value="#{msg['plan.btnAddPi']}"
+				style="margin-right:10px"
+				actionListener="#{AssessmentPlanViewConsultController.addNewPi()}"
+				update="@form">
+			</p:commandButton>
+
+			<p:commandButton value="#{msg['plan.btnCrearPlanAssessment2']}"
+				update="panel"
+				actionListener="#{AssessmentPlanViewConsultController.createPlanFromAnother}" />
+		</div>
+
+	</h:form>
+
+
+</h:body>
+</html>

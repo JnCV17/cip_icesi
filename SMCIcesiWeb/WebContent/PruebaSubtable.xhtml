@@ -1,0 +1,107 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<style>
+.noborder-title {
+	border: #a8a8a8 !important;
+	border-left: hidden !important;
+	border-right: hidden !important;
+	text-align: center;
+	background: rgba(255, 255, 255, 1) !important;
+}
+
+.nopaddingRow {
+	border-top: hidden !important;
+	border-bottom: hidden !important;
+	padding: 0px 0px 0px 0px !important;
+}
+
+.noHead thead {
+	display: none;
+}
+</style>
+</h:head>
+
+<h:body>
+
+	<h:form>
+		<p:panel id="panel" header="#{msg['plan.lblplanView']}"
+			style="margin-bottom:10px;">
+			<p:messages id="messages" />
+
+		</p:panel>
+
+		<p:dataTable var="plan" value="#{subtableC.lista1}" editable="true">
+			<f:facet name="header">
+            Planes
+        </f:facet>
+			<p:columnGroup type="header">
+				<p:row>
+					<p:column rowspan="2" headerText="Pi" />
+					<p:column colspan="4" headerText="Otros" />
+					<p:column rowspan="2" headerText="Evaluation" />
+
+				</p:row>
+				<p:row>
+					<p:column headerText="Source of Assessment" />
+					<p:column headerText="Method" />
+					<p:column headerText="Date of Data Collection" />
+					<p:column headerText="Person in Charge of Data Collection" />
+				</p:row>
+			</p:columnGroup>
+
+
+			<p:subTable var="pis" value="#{plan.piSmcs}">
+
+				<p:column>
+					<h:outputText value="#{pis.code}" />
+				</p:column>
+				<p:column styleClass="nopaddingRow">
+					<!-- <h:outputText value="#{pis.asSrcs}" /> -->
+					<p:dataTable var="source" value="#{pis.asSrcs}" styleClass="noHead">
+						<p:column styleClass="noborder-title">
+							<h:outputText value="#{source.idAsSrc}" />
+						</p:column>
+					</p:dataTable>
+				</p:column>
+
+				<p:column styleClass="nopaddingRow">
+					<p:dataTable var="source" value="#{pis.asSrcs}" styleClass="noHead">
+						<p:column styleClass="noborder-title">
+							<h:outputText value="#{source.method.description}" />
+						</p:column>
+					</p:dataTable>
+				</p:column>
+				<p:column styleClass="nopaddingRow">
+					<p:dataTable var="source" value="#{pis.asSrcs}" styleClass="noHead">
+						<p:column styleClass="noborder-title">
+							<h:outputText value="#{source.method.description}" />
+						</p:column>
+					</p:dataTable>
+				</p:column>
+				<p:column styleClass="nopaddingRow">
+					<p:dataTable var="source" value="#{pis.asSrcs}" styleClass="noHead">
+						<p:column styleClass="noborder-title">
+							<h:outputText value="#{source.collectionDate}" />
+						</p:column>
+					</p:dataTable>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{plan.userCip.nameUser}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{plan.evaluationFrequency}" />
+				</p:column>
+			</p:subTable>
+
+		</p:dataTable>
+
+		<p:growl id="getmessages" showDetail="true" />
+
+	</h:form>
+
+</h:body>
+</html>

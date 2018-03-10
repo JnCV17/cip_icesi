@@ -1,0 +1,153 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<style>
+.noborder-title {
+	border: #a8a8a8 !important;
+	border-left: hidden !important;
+	border-right: hidden !important;
+	text-align: center;
+	background: rgba(255, 255, 255, 1) !important;
+}
+
+.nopaddingRow {
+	padding: 0px 0px 0px 0px !important;
+}
+
+.ui-datatable-odd {
+	background: white;
+}
+
+.noHead thead {
+	display: none;
+}
+</style>
+</h:head>
+
+<h:body>
+
+	<h:form>
+		<p:panel id="panel" header="#{msg['eval.lblEvalView']}"
+			style="margin-bottom:10px;">
+			<h:panelGrid columns="2" cellpadding="5">
+			<h:outputLabel
+					value="#{msg['eval.lblEstado']}  #{EvaluationReportViewConsultController.evalReport.stateSmc.stateName}" />
+			
+				</h:panelGrid>
+
+			<p:messages id="messages" />
+				<h:panelGrid columns="3" cellpadding="5">
+				<h:outputLabel
+					value="#{msg['plan.lblCambiarEstado']}" />
+
+				<p:selectOneMenu id="somChangeState"
+					value="#{EvaluationReportViewConsultController.state}">
+					<f:selectItem itemLabel="#{msg['plan.lblSelectState']}"
+						itemvalue="#{null}" noSelectionOption="true" />
+					<f:selectItems
+						value="#{EvaluationReportViewConsultController.losEstados}"
+						var="stat" itemLabel="#{stat.stateName}" itemValue="#{stat}" />
+					<f:converter converterId="StateConverter" />
+					
+				</p:selectOneMenu>
+				<p:commandButton value="#{msg['plan.btnChangeState']}" ajax="false"
+					actionListener="#{EvaluationReportViewConsultController.cambiarEstado}"
+					update="panel,messages" />
+			</h:panelGrid>
+		
+
+		</p:panel>
+
+
+		<div style="display: flex; flex-direction: row; margin-top: 2%;">
+
+			<div>
+
+				<p:dataTable var="pis" id="op"
+					value="#{EvaluationReportViewConsultController.assessmentPlan.piSmcs}">
+
+					<p:column headerText="Pi">
+						<h:outputText value="#{pis.code}--#{pis.description}" />
+					</p:column>
+
+
+					<p:column
+						headerText="Source of Assessment  || Methodology  || Population  || Result || Improvement || Assigned">
+
+						<p:dataTable var="srcAss" value="#{pis.asSrcs}" id="ot"
+							styleClass="noHead">
+
+							<p:column styleClass="noborder-title" colspan="2">
+								<h:outputText value="#{srcAss.course.nameCourse}" />
+							</p:column>
+
+
+
+							<p:column styleClass="noborder-title" colspan="2">
+								<h:outputText value="#{srcAss.methodology}" />
+
+							</p:column>
+
+				<p:column styleClass="noborder-title" colspan="2">
+								<h:outputText value="#{srcAss.population}" />
+							</p:column>
+			
+
+
+							<p:column styleClass="noborder-title" colspan="2">
+								<h:outputText value="#{srcAss.result}" />
+							</p:column>
+							
+							<p:column styleClass="noborder-title" colspan="2">
+								<h:outputText value="#{srcAss.improvement}" />
+							</p:column>
+							
+							<p:column styleClass="noborder-title" colspan="2">
+								<h:outputText value="#{srcAss.assigned}" />
+							</p:column>
+							
+						
+
+						</p:dataTable>
+					</p:column>
+				
+
+
+
+
+				</p:dataTable>
+
+
+
+			</div>
+		</div>
+
+		<p:fileUpload
+			fileUploadListener="#{EvaluationReportViewConsultController.upload}"
+			label="#{msg['eval.lblUpload']}" mode="advanced" auto="true"
+			update="@form" style="width:300px" />
+
+
+	<p:commandButton value="#{msg['eval.lblDownload']}" ajax="false">
+
+
+			<p:fileDownload
+				value="#{EvaluationReportViewConsultController.filedownload}" />
+		</p:commandButton>
+	
+		
+
+
+		<p:commandButton value="#{msg['plan.lblGenerateReport']}" ajax="false"
+			actionListener="#{EvaluationReportViewConsultController.exportAsPdf}">
+		</p:commandButton>
+
+
+	</h:form>
+
+
+</h:body>
+</html>

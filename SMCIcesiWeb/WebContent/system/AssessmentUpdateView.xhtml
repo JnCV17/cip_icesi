@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:head>
+        <title>Modify Pi</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+	 
+           <p:growl id="messages" showDetail="true"/>
+            
+            <p:panel id="pnlEdit" header="">
+				<h:panelGrid columns="2" border="0">
+
+					<p:outputLabel id="lblEPi" value="PI: " />
+					<p:inputText id="txtEPi" disabled="true"
+						value="#{AssessmentPlanViewConsultController.selectedPi.code}" />
+
+					<p:outputLabel id="lblEDes" value="Descripcion: " />
+					<p:inputText id="txtEDesc" 
+						value="#{AssessmentPlanViewConsultController.descriptionE}" />
+						
+						
+					<p:outputLabel id="lblENivelCDIO"
+						value="#{msg['plan.lblNivelCDIO']}" />
+					<p:selectOneMenu id="somCdioSkill"
+						value="#{AssessmentPlanViewConsultController.cdioS}"
+						style="width:200px">
+						<p:ajax event="valueChange"
+							listener="#{AssessmentPlanViewConsultController.onCdioSkillChange}"
+							update="SomCursos"
+							 />
+						<f:selectItem itemLabel="#{msg['plan.selectCdioSkill']}"
+							itemValue="#{null}" noSelectionOption="true" />
+						<f:selectItems
+							value="#{AssessmentPlanViewConsultController.cdioPlanOutcome}"
+							var="cS" itemLabel="#{cS.description}" itemValue="#{cS}" />
+						<f:converter converterId="CdioSkillConverter" />
+					</p:selectOneMenu>
+</h:panelGrid>
+					
+			</p:panel>
+            
+            
+            <p:panel header="Source" style="width: 400px;"> 
+                <p:panelGrid columns="2">
+                    <h:outputLabel value="Source of assessment: " />
+                    <p:selectOneMenu id="SomCursos" 
+                    value="#{AssessmentPlanViewConsultController.curso}"
+                    style="width:200px">
+                    <p:ajax event="valueChange"
+							listener="#{AssessmentPlanViewConsultController.onCdioSkillChange}"
+							 />
+							 <f:selectItem itemLabel="Select course"
+							itemValue="#{null}" noSelectionOption="true" />
+                    <f:selectItems
+							value="#{AssessmentPlanViewConsultController.cursosCdio}"
+							var="co" itemLabel="#{co.nameCourse}" itemValue="#{co}" />
+						<f:converter converterId="CourseConverter" />
+                    </p:selectOneMenu>
+                  
+                    <h:outputLabel value="Method: " />
+                    <p:selectOneMenu id="somMethod"
+							value="#{AssessmentPlanViewConsultController.selM}"
+							style="width:200px">
+							<p:ajax event="valueChange"
+								listener="#{AssessmentPlanViewConsultController.addMethod(cou)}" />
+							<f:selectItem itemLabel="Select method"
+								itemValue="#{null}" noSelectionOption="true" />
+							<f:selectItems
+								value="#{AssessmentPlanViewConsultController.listMet}" var="met"
+								itemLabel="#{met.shortDescription}" itemValue="#{met}" />
+							<f:converter converterId="MethodConverter" />
+							
+							
+						</p:selectOneMenu>
+						
+						
+                   
+                    <h:outputLabel  value="Fecha de recoleccion: " />
+                    <p:calendar id="popupFR"
+						value="#{AssessmentPlanViewConsultController.dateFR}" />
+                     <h:outputLabel  value="Persona a cargo: " />
+                    <p:selectOneMenu id="somUserCip"
+							value="#{AssessmentPlanViewConsultController.userCip}"
+							style="width:200px">
+							<f:selectItem itemLabel="#{msg['plan.selectEncargado']}"
+								itemValue="#{null}" noSelectionOption="true" />
+							<f:selectItems
+								value="#{AssessmentPlanViewConsultController.usersCip}"
+								var="use" itemLabel="#{use.nameUser} #{use.lastName}"
+								itemValue="#{use}" />
+							<f:converter converterId="UserCipConverter" />
+							
+						</p:selectOneMenu>
+						<p:outputLabel id="lblFrec" value="Frecuencia: " />
+					<p:inputText id="txtFrec" 
+						value="#{AssessmentPlanViewConsultController.frequencyE}" />
+						
+                    <f:facet name="footer">
+                        <h:commandButton value="Add Source" action="#{AssessmentPlanViewConsultController.addAction}" update="tableEv" />
+                         
+                    </f:facet>
+                </p:panelGrid>
+                <p:spacer height="30px;"/>
+                <p:dataTable value="#{AssessmentPlanViewConsultController.fuentesAssessment}" var="o"  editable="true" id="tableEv">
+                    <f:facet name="header">  
+                        Source List  
+                    </f:facet>
+                    
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Source of assessment" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{o.course.nameCourse}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{o.course.nameCourse}" style="width:100%"/>  
+                            </f:facet>  
+                        </p:cellEditor> 
+                    </p:column>
+ 
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Method" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{o.method.name}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{o.method.name}" style="width:100%"/>  
+                            </f:facet>  
+                        </p:cellEditor>
+                    </p:column>
+ 
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Fecha de recoleccion" />  
+                             
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{o.collectionDate}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{o.collectionDate}" style="width:100%"/>  
+                            </f:facet>  
+                        </p:cellEditor>
+                    </p:column>      
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Persona a cargo" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{o.collectionDate}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{o.collectionDate}" style="width:100%"/>  
+                            </f:facet>  
+                        </p:cellEditor>
+                    </p:column>          
+                    <p:column headerText="Options" style="width:50px">  
+                        <p:rowEditor />  
+                    </p:column> 
+                </p:dataTable>
+                
+                 <h:commandButton value="Modify"  actionListener="#{AssessmentPlanViewConsultController.modifyPlan}"/>
+            </p:panel>
+       
+	
+		
+         </h:form>
+    </h:body>
+</html>
+	

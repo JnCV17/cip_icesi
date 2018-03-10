@@ -1,0 +1,212 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+
+	<title>.::SMC ICESI:: Gestion mejoramiento continuo.</title>
+
+	<link
+		href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300"
+		rel="stylesheet"/>
+		<!-- Compiled and minified CSS -->
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" />
+
+	<!-- Compiled and minified JavaScript -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		rel="stylesheet" />
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"
+		media="screen,projection" />
+
+
+	<style>
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+.campoTexto {
+	height: auto;
+}
+
+.itemsMenu {
+	color: black !important;
+	font-size: large !important;
+	float: unset!importan;
+}
+
+.itemsMenu2 {
+	color: black !important;
+	font-size: large !important;
+	float: unset!importan;
+	padding-left: 30px !important;
+}
+
+
+
+
+.titulos {
+	color: black;
+	text-align: center;
+	font-size: 0.8em;
+}
+
+.idiomaLogout {
+	
+}
+
+panelgrid {
+	border: none;
+}
+
+.buttonSuperior {
+	margin: 3 5px 0 5px;
+	float: right !important;
+	height: 80%;
+}
+
+.espacio {
+	height: 100px;
+}
+
+.selecOneMenu {
+	border: hidden !important;
+	text-align: center;
+	background: rgba(204, 204, 204, 0) !important;
+	font-family: 'Open Sans', sans-serif;
+}
+
+body {
+	background-color: #f4f6fa;
+	background-repeat: no-repeat;
+	color: white;
+	font-family: 'Open Sans', sans-serif;
+	background-repeat: no-repeat;
+}
+
+.portada {
+	font-family: 'Open Sans Condensed', sans-serif !important;
+	font-size: 1.5em !important;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 20px;
+
+}
+
+.prueba2 {
+	background-color: #c4c4c4;
+	width: 100%;
+}
+
+.banner {
+	width: 75% !important;
+	height: 5% !important;
+	background-color: white !important;
+	border: ridge !important;
+	color: black;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+	float: right;
+	margin-bottom: 10px;
+}
+
+.image {
+	float: left !important;
+	height: 10%;
+	width: 95%;
+	padding-left: 5px;
+	padding-bottom: 10px;
+}
+
+.navMenu {
+	width: 24% !important;
+	background-color: white !important;
+	border: ridge !important;
+	float: left !important;
+}
+
+.divPrincipal {
+	width: 75% !important;
+	background-color: white !important;
+	border: ridge !important;
+	float: Right !important;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/*
+		justify-content: space-around;
+		*/
+	height: 100%;
+}
+
+.divConsulta1 {
+	width: 75% !important;
+	background-color: white !important;
+	border: ridge !important;
+	float: Right !important;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/*
+		justify-content: space-around;
+		*/
+	height: 37%;
+}
+
+.divConsulta2 {
+	width: 74% !important;
+	background-color: white !important;
+	border: ridge !important;
+	float: Right !important;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/* justify-content: space-around; */
+	height: auto;
+	margin-top: 5px;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.menu {
+	width: 100% !important;
+	background-color: white !important;
+	border: none !important;
+	float: left !important;
+	font-size: 0.8em !important;
+}
+
+.menu2 {
+	width: 90% !important;
+	background-color: white !important;
+	border: none !important;
+	float: left !important;
+	font-size: 1em !important;
+}
+
+.footerr {
+	width: 82% !important;
+	float: right;
+}
+</style>
+
+
+
+
+</h:head>
+<h:body>
+	<ui:insert name="header">
+		<ui:include src="/template/superior.xhtml" />
+	</ui:insert>
+
+	<ui:insert name="body" />
+
+	<ui:insert name="footer">
+		<ui:include src="/template/inferior.xhtml" />
+	</ui:insert>
+</h:body>
+</html>

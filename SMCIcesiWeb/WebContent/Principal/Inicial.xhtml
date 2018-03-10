@@ -1,0 +1,166 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<style>
+.header-site {
+	width: 100%;
+	height: 100%;
+	background-image:
+		url(/SMCIcesiWeb/faces/javax.faces.resource/images/fondo_icesi.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: center;
+	background-image:
+		url(/SMCIcesiWeb/faces/javax.faces.resource/images/logo.png);
+}
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+.idioma {
+	float: right;
+}
+
+.espacio {
+	height: 100px;
+}
+
+.footerr {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 1rem;
+	text-align: center;
+}
+
+.selecCiclos {
+	border: hidden !important;
+	text-align: center;
+	background: rgba(204, 204, 204, 0) !important;
+	font-family: 'Open Sans', sans-serif;
+}
+
+body {
+	background-image:
+		url(/SMCIcesiWeb/faces/javax.faces.resource/images/saman_slider.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: center;
+	color: white;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.som {
+	border: hidden !important;
+}
+</style>
+</h:head>
+
+<h:body>
+	<f:loadBundle var="msg" basename="co.com.novatech.resources.labels" />
+	<h:form>
+		<div style="height: 36px;">
+
+			<h:panelGrid columns="2" cellpadding="1" class="idioma">
+				<h:commandButton id="btSp" action="#{LoginController.changeSpanish}"
+					value="Espa&#241;ol"  ajax="false" />
+
+
+				<h:commandButton id="btEp" action="#{LoginController.changeEnglish}"
+					value="English" ajax="false" />
+			</h:panelGrid>
+		</div>
+	</h:form>
+
+	<div>
+		<div>
+			<h:form>
+				<p:button styleClass="idioma" value="#{msg['menu.itemLogOut']}"
+					action="#{PrincipalPageController.actionLogout}"
+					 ajax="false" />
+			</h:form>
+		</div>
+		<div>
+			<h1 style="text-align: center; color: white; padding-left: 3%">#{msg['ppal.mensajeBienvenida']}
+				#{PrincipalPageController.nameUser}</h1>
+			<h2 style="text-align: center; color: white;">#{PrincipalPageController.roles}</h2>
+		</div>
+	</div>
+
+	<div
+		style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%">
+		<h1 style="text-align: center; color: white; margin-top: 8%">#{msg['ppal.seleccionCiclo']}</h1>
+		<h:form style="width: 100%">
+			<div>
+
+				<p:panel styleClass="selecCiclos">
+
+					<p:outputLabel
+						style="color: white;font-family: 'Open Sans', sans-serif;"
+						for="somProgram" value="#{msg['plan.lblFiltroPrograma']}" />
+
+					<p:selectOneMenu styleClass="som" id="somProgram" required="true"
+						requiredMessage="#{msg['menu.exeRequerido']}"
+						value="#{PrincipalPageController.program}">
+						<p:ajax event="change"
+							listener="#{PrincipalPageController.onProgramChange}"
+							update="somCycle,somSCycle" />
+						<f:selectItem itemLabel="Select Program"
+							itemValue="#{PrincipalPageController.programSesion}" />
+						<f:selectItems value="#{PrincipalPageController.losProgramas}"
+							var="pro" itemLabel="#{pro.nameProgram}" itemValue="#{pro}" />
+						<f:converter converterId="ProgramConverter" />
+					</p:selectOneMenu>
+
+					<p:outputLabel
+						style="color: white;font-family: 'Open Sans', sans-serif; margin-left:2%"
+						for="somCycle" value="#{msg['plan.lblFiltroCiclo']}" />
+
+					<p:selectOneMenu styleClass="som" id="somCycle" required="true"
+						requiredMessage="#{msg['menu.exeRequerido']}"
+						value="#{PrincipalPageController.cycle}">
+						<p:ajax event="change"
+							listener="#{PrincipalPageController.onCycleChange}"
+							update="somSCycle" />
+						<f:selectItem itemLabel="Select Cycle"
+							itemValue="#{PrincipalPageController.cycleSesion}" />
+						<f:selectItems value="#{PrincipalPageController.losCiclos}"
+							var="cyc" itemLabel="#{cyc.cycleName}" itemValue="#{cyc}" />
+						<f:converter converterId="MainCycleConverter" />
+					</p:selectOneMenu>
+
+					<p:outputLabel
+						style="color: white;font-family: 'Open Sans', sans-serif;margin-left:2%"
+						for="somSCycle" value="#{msg['plan.lblFiltroSubciclo']}" />
+
+					<p:selectOneMenu styleClass="som" id="somSCycle" required="true"
+						requiredMessage="#{msg['menu.exeRequerido']}"
+						value="#{PrincipalPageController.subcycle}">
+
+						<f:selectItem
+							itemValue="#{PrincipalPageController.subcycleSesion}" />
+						<f:selectItems value="#{PrincipalPageController.losSubciclos}"
+							var="scyc" itemLabel="#{scyc.cycleName}" itemValue="#{scyc}" />
+						<f:converter converterId="MainCycleConverter" />
+					</p:selectOneMenu>
+				</p:panel>
+			</div>
+			<div
+				style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%">
+				<p:commandButton value="#{msg['ppal.irA']}"
+					action="#{PrincipalPageController.irACiclo}" ajax="false"
+					 style="margin-top:4%" />
+			</div>
+		</h:form>
+	</div>
+	<div class="footerr">
+		<ui:insert name="footer">
+			<ui:include src="/template/inferior.xhtml" />
+		</ui:insert>
+	</div>
+</h:body>
+
+</html>
